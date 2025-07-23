@@ -1,0 +1,10 @@
+::ng-deep .file-upload-wrapper .p-fileupload-buttonbar {
+    @apply flex flex-wrap gap-2 justify-start;
+  }
+
+  /* Optional: Stack buttons on extra-small screens */
+  @media (max-width: 640px) {
+    ::ng-deep .file-upload-wrapper .p-button {
+      @apply w-full;
+    }
+  }

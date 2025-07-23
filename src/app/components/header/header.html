@@ -1,0 +1,37 @@
+<header class="bg-black">
+    <div class="px-6 py-3">
+      <div class="flex items-center justify-between max-w-7xl mx-auto">
+        <!-- Mobile Menu Button (Top Left) -->
+        <button class="md:hidden w-8 h-8 flex items-center justify-center" id="mobile-menu-btn" (click)="toggler()">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </button>
+        <!-- Logo (Centered on Mobile) -->
+        <div class="flex items-center justify-center md:justify-start">
+          <img src="https://www.hobabhospitality.com/assets/images/system/hobab.png?v1.0.9" class="h-12" alt="Hobab Logo">
+        </div>
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center justify-center w-full py-2">
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium px-6 border-r border-gray-600">Home</a>
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium px-6 border-r border-gray-600">Our Services</a>
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium px-6 border-r border-gray-600">Our Clients</a>
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium px-6 border-r border-gray-600">Partners</a>
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium px-6 border-r border-gray-600">About Us</a>
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium px-6">Contact Us</a>
+        </nav>
+      </div>
+      <!-- Mobile Navigation -->
+      <nav *ngIf="toggleMenu" class="md:hidden mt-4 pb-4 border-t border-gray-800 pt-4">
+        <div class="flex flex-col">
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium py-3 px-6 border-b border-gray-800">Home</a>
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium py-3 px-6 border-b border-gray-800">Our Services</a>
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium py-3 px-6 border-b border-gray-800">Our Clients</a>
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium py-3 px-6 border-b border-gray-800">Partners</a>
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium py-3 px-6 border-b border-gray-800">About Us</a>
+          <a href="#" class="text-white hover:text-[#C8A97E] transition-colors duration-200 font-medium py-3 px-6">Contact Us</a>
+        </div>
+      </nav>
+    </div>
+  </header>

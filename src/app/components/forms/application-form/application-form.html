@@ -1,0 +1,239 @@
+<div class="bg-white flex items-center justify-center min-h-screen">
+    <p-confirmpopup/>
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+      <form class="space-y-6" #applicationForm="ngForm" (ngSubmit)="onSubmit($event)">
+        <h1 class="text-2xl font-bold text-gray-800 text-center">Job Title: General Manager</h1>
+  
+        <div class="space-y-4">
+          <h2 class="text-lg font-semibold text-gray-800">Personal Information</h2>
+  
+          <!-- Full Names -->
+          <div class="flex flex-col">
+            <label for="fullNames" class="text-sm font-medium text-gray-700 mb-1">Enter Your Full Names:</label>
+            <input 
+              id="fullNames"
+              type="text"
+              name="fullNames"
+              [(ngModel)]="formData.fullNames"
+              required
+              #fullNames="ngModel"
+              class="border p-2 rounded-md focus:outline-none focus:ring-2 w-full"
+              [class.border-red-500]="fullNames.invalid && fullNames.touched"
+            />
+            <small *ngIf="fullNames.invalid && fullNames.touched" class="text-red-500">Full name is required.</small>
+          </div>
+  
+          <!-- Email -->
+          <div class="flex flex-col">
+            <label for="email" class="text-sm font-medium text-gray-700 mb-1">Enter Your Email Address:</label>
+            <input 
+              id="email"
+              type="email"
+              name="email"
+              [(ngModel)]="formData.email"
+              required
+              email
+              #email="ngModel"
+              class="border p-2 rounded-md focus:outline-none focus:ring-2 w-full"
+              [class.border-red-500]="email.invalid && email.touched"
+            />
+            <small *ngIf="email.invalid && email.touched" class="text-red-500">Valid email is required.</small>
+          </div>
+  
+          <!-- Phone Number -->
+          <div class="flex flex-col">
+            <label for="phoneNumber" class="text-sm font-medium text-gray-700 mb-1">Enter Your Phone Number:</label>
+            <input 
+              id="phoneNumber"
+              type="tel"
+              name="phoneNumber"
+              pattern="[0-9]{10}"
+              [(ngModel)]="formData.phoneNumber"
+              required
+              #phoneNumber="ngModel"
+              class="border p-2 rounded-md focus:outline-none focus:ring-2 w-full"
+              [class.border-red-500]="phoneNumber.invalid && phoneNumber.touched"
+            />
+            <small *ngIf="phoneNumber.invalid && phoneNumber.touched" class="text-red-500">Phone number is required (10 digits).</small>
+          </div>
+  
+          <!-- Town -->
+          <div class="flex flex-col">
+            <label for="town" class="text-sm font-medium text-gray-700 mb-1">Choose your location:</label>
+            <p-select 
+              [options]="towns"
+              optionLabel="name"
+              optionValue="name"
+              name="town"
+              [(ngModel)]="townChoosen"
+              required
+              #town="ngModel"
+              placeholder="Choose Location"
+              class="w-full"
+              [ngClass]="{'border-red-500': town.invalid && town.touched}"
+            ></p-select>
+            <small *ngIf="town.invalid && town.touched" class="text-red-500">Town is required.</small>
+          </div>
+  
+          <!-- Date of Birth -->
+          <div class="flex flex-col">
+            <label for="dob" class="text-sm font-medium text-gray-700 mb-1">Choose your Date of Birth:</label>
+            <p-date-picker 
+              id="dob"
+              name="dob"
+              placeholder="e.g., Jan 20 2004"
+              [(ngModel)]="formData.DOB"
+              required
+              #dob="ngModel"
+              class="w-full"
+              [ngClass]="{'border-red-500': dob.invalid && dob.touched}"
+            ></p-date-picker>
+            <small *ngIf="dob.invalid && dob.touched" class="text-red-500">Date of birth is required.</small>
+          </div>
+  
+          <!-- Salary Expectations -->
+          <div class="flex flex-col">
+            <label for="salaryExpectations" class="text-sm font-medium text-gray-700 mb-1">Enter Your Salary Expectations:</label>
+            <input 
+              id="salaryExpectations"
+              type="text"
+              name="salaryExpectations"
+              [(ngModel)]="formData.salaryExpectations"
+              required
+              #salaryExpectations="ngModel"
+              class="border p-2 rounded-md focus:outline-none focus:ring-2 w-full"
+              [class.border-red-500]="salaryExpectations.invalid && salaryExpectations.touched"
+            />
+            <small *ngIf="salaryExpectations.invalid && salaryExpectations.touched" class="text-red-500">Salary expectation is required.</small>
+          </div>
+  
+          <!-- Brief Intro -->
+          <div class="flex flex-col">
+            <label for="briefIntro" class="text-sm font-medium text-gray-700 mb-1">Provide brief intro:</label>
+            <textarea 
+              id="briefIntro"
+              name="briefIntro"
+              [(ngModel)]="formData.briefIntro"
+              required
+              #briefIntro="ngModel"
+              rows="5"
+              class="border p-2 rounded-md focus:outline-none focus:ring-2 w-full"
+              [class.border-red-500]="briefIntro.invalid && briefIntro.touched"
+            ></textarea>
+            <small *ngIf="briefIntro.invalid && briefIntro.touched" class="text-red-500">Brief intro is required.</small>
+          </div>
+        </div>
+  
+        <!-- Work Experience -->
+        <div class="space-y-4">
+          <h2 class="text-lg font-semibold text-gray-800">Work Experience</h2>
+          <div *ngFor="let experience of workExperiences; let i = index" class="p-4 rounded-md border border-gray-200">
+            <div class="flex flex-col">
+              <label [for]="'company-' + i" class="text-sm font-medium text-gray-700 mb-1">Company Name:</label>
+              <input 
+                [id]="'company-' + i"
+                type="text"
+                [(ngModel)]="experience.company"
+                [name]="'company-' + i"
+                required
+                #company="ngModel"
+                class="border p-2 rounded-md w-full"
+                [class.border-red-500]="company.invalid && company.touched"
+              />
+              <small *ngIf="company.invalid && company.touched" class="text-red-500">Company is required.</small>
+            </div>
+  
+            <div class="flex flex-col mt-2">
+              <label [for]="'position-' + i" class="text-sm font-medium text-gray-700 mb-1">Role:</label>
+              <input 
+                [id]="'position-' + i"
+                type="text"
+                [(ngModel)]="experience.position"
+                [name]="'position-' + i"
+                required
+                #position="ngModel"
+                class="border p-2 rounded-md w-full"
+                [class.border-red-500]="position.invalid && position.touched"
+              />
+              <small *ngIf="position.invalid && position.touched" class="text-red-500">Role is required.</small>
+            </div>
+  
+            <div class="flex flex-col mt-2">
+              <label [for]="'duration-' + i" class="text-sm font-medium text-gray-700 mb-1">Duration:</label>
+              <p-date-picker
+                selectionMode="range"
+                [id]="'duration-' + i"
+                [(ngModel)]="experience.duration"
+                [name]="'duration-' + i"
+                required
+                #duration="ngModel"
+                class="w-full"
+                [ngClass]="{'border-red-500': duration.invalid && duration.touched}"
+              ></p-date-picker>
+              <small *ngIf="duration.invalid && duration.touched" class="text-red-500">Duration is required.</small>
+            </div>
+  
+            <div class="flex flex-col mt-2">
+              <label [for]="'description-' + i" class="text-sm font-medium text-gray-700 mb-1">Description:</label>
+              <textarea 
+                [id]="'description-' + i"
+                [(ngModel)]="experience.description"
+                [name]="'description-' + i"
+                pInputTextarea
+                rows="3"
+                required
+                #description="ngModel"
+                class="border p-2 rounded-md w-full"
+                [class.border-red-500]="description.invalid && description.touched"
+              ></textarea>
+              <small *ngIf="description.invalid && description.touched" class="text-red-500">Description is required.</small>
+            </div>
+  
+            <button 
+              type="button"
+              (click)="removeWorkExperience(i)"
+              class="mt-3 bg-red-600 text-white py-1 px-2 rounded hover:bg-red-700 w-full"
+            >
+              Remove Experience {{ i + 1 }}
+            </button>
+          </div>
+  
+          <button 
+            type="button"
+            (click)="addWorkExperience()"
+            class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 w-full"
+          >
+            Add Work Experience
+          </button>
+        </div>
+  
+        <!-- File Upload -->
+        <div class="w-full">
+          <p-fileupload
+            #fu
+            mode="advanced"
+            chooseLabel="Choose Application Files"
+            chooseIcon="pi pi-upload"
+            name="demo"
+            multiple
+            maxFileSize="100000000"
+            (onSelect)="onUpload($event)"
+            showCancelButton="false"
+            class="w-full bg-white"
+          ></p-fileupload>
+        </div>
+  
+        <!-- Submit Button -->
+        <button 
+          type="submit"
+          *ngIf="!loading"
+          class="w-full cursor-pointer bg-[#f0e368] text-black py-2 rounded-md hover:bg-[#e9db56] transition"
+        >
+          Submit Application
+        </button>
+        <app-commoners *ngIf="loading"></app-commoners>
+      </form>
+    </div>
+  </div>
+
+  <p-toast/>
