@@ -86,4 +86,20 @@ class ApplicationController extends Controller{
 
 
 
+    public function fetchApplications(Request $request){
+    try{
+     $appplications =  application::all();
+      return response()->json([
+      "message"=>"Applications fetched",
+      "data"=>$appplications
+      ]);
+    }catch(\Exception $err){
+Log::error($err);
+return response()->json([
+"message"=>"Something went wrong"
+]);
+}}
+
+
+
 }
