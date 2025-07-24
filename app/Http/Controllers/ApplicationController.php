@@ -9,6 +9,8 @@ use App\Models\application;
 use App\Mail\ApplicationMail;
 use Mail;
 use App\Mail\Notify;
+use Cloudinary\Cloudinary;
+
 
 class ApplicationController extends Controller{
 
@@ -33,7 +35,7 @@ class ApplicationController extends Controller{
     public function SaveApplication(Request $request)
     {
         try {
-      
+          $cld = new Cloudinary();
             $validatedRequest = $request->validate([
                 'fullNames' => 'required|string',
                 'emailAddress' => 'required|email',
@@ -48,6 +50,11 @@ class ApplicationController extends Controller{
             ]);
     
             $files = $request->file('applicationDocs');
+
+            $passportPath = $cld->uploadApi()->upload($request->file("passportPhoto",[
+            "folder"=>"Hoabab"
+            ])->getRealPath());
+            $validatedRequest['passportPhoto'] = $passportPath['secure_url'];
             if (empty($files)) {
                 return response()->json([
                     'message' => 'No Application files uploaded',

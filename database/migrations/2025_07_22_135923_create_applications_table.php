@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text("resumePath")->nullable(false);
             $table->string("salaryExpectations")->nullable(false);
             $table->string("DOB")->nullable(false);
+            $table->string("passportPhoto")->nullable(false);
 
 
 
