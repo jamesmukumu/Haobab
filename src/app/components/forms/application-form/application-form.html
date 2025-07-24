@@ -59,20 +59,19 @@
   
           <!-- Town -->
           <div class="flex flex-col">
-            <label for="town" class="text-sm font-medium text-gray-700 mb-1">Choose your location:</label>
-            <p-select 
-              [options]="towns"
-              optionLabel="name"
-              optionValue="name"
-              name="town"
+            <label for="town" class="text-sm font-medium text-gray-700 mb-1">Enter your location:</label>
+            <input 
+              id="email"
+              type="text"
+              name="town-choosen"
               [(ngModel)]="townChoosen"
               required
-              #town="ngModel"
-              placeholder="Choose Location"
-              class="w-full"
-              [ngClass]="{'border-red-500': town.invalid && town.touched}"
-            ></p-select>
-            <small *ngIf="town.invalid && town.touched" class="text-red-500">Town is required.</small>
+             
+              #Town="ngModel"
+              class="border p-2 rounded-md focus:outline-none focus:ring-2 w-full"
+              [class.border-red-500]="Town.invalid && Town.touched"
+            />
+            <small *ngIf="Town.invalid && Town.touched" class="text-red-500">Location is required.</small>
           </div>
   
           <!-- Date of Birth -->
@@ -124,6 +123,23 @@
           </div>
         </div>
   
+
+          
+        <!-- File Upload -->
+        <div class="w-full">
+          <p-fileupload
+            #fu
+            mode="basic"
+            chooseLabel="Choose Passport size photo"
+            chooseIcon="pi pi-upload"
+            name="demo"
+      
+            maxFileSize="100000000"
+            (onSelect)="selectPassport($event)"
+            showCancelButton="false"
+            class="w-full bg-white"
+          ></p-fileupload>
+        </div>
         <!-- Work Experience -->
         <div class="space-y-4">
           <h2 class="text-lg font-semibold text-gray-800">Work Experience</h2>

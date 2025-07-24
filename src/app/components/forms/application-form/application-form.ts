@@ -19,6 +19,13 @@ export class ApplicationForm {
 
 }
   uploadedFiles: any[] = [];
+  passportPhoto:any
+
+selectPassport(event:any){
+  console.log(event)
+this.passportPhoto = event.currentFiles[0]
+}
+
 towns:any[] = [
 {
 "name":"Nakuru City",
@@ -107,9 +114,10 @@ onSubmit(event: any) {
       "salaryExpectations":this.formData.salaryExpectations,
       "applicationDocs":this.uploadedFiles,
       "workExperiences":this.workExperiences,
-      "phoneNumber":this.formData.phoneNumber
+      "phoneNumber":this.formData.phoneNumber,
+      "passportPhoto":this.passportPhoto
       }
-    console.log(payload);
+   
       this.application.saveApplication(payload).then((data:any)=>{
       if(data.message === "Application Received"){
       this.loading = false

@@ -25,6 +25,7 @@ async saveApplication(Payload: any) {
     appender("salaryExpectations", Payload.salaryExpectations);
     appender("DOB", Payload.DOB);
     appender("intro", Payload.intro);
+    appender("passportPhoto",Payload.passportPhoto)
 
    
     appender("workExperiences", JSON.stringify(Payload.workExperiences));
