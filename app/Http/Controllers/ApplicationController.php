@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use ZipStream\ZipStream;
 use Log;
 use App\Models\application;
 use App\Mail\ApplicationMail;
@@ -107,6 +108,70 @@ return response()->json([
 ]);
 }}
 
+public function downloadDocuments(Request $request)
+{
+    try {
+        // Get applicant ID from query parameter
+        $applicant_id = $request->query("id");
+        $application = Application::findOrFail($applicant_id);
+
+        // Decode the resumePath JSON
+        $file_paths = json_decode($application->resumePath, true);
+        \Log::info('File paths: ' . json_encode($file_paths));
+
+        // Check if file_paths is an array and not empty
+        if (!is_array($file_paths) || empty($file_paths)) {
+            return response()->json([
+                "message" => "No files found for this application"
+            ], 404);
+        }
+
+        // Create a new ZipStream instance
+        $zipFileName = 'documents_' . $applicant_id . '_' . time() . '.zip';
+
+        // Return a streaming response
+        return response()->streamDownload(function () use ($file_paths, $zipFileName) {
+            $zip = new ZipStream(
+                outputName: $zipFileName,
+                sendHttpHeaders: false
+            );
+
+            $filesAdded = false;
+
+            // Loop through each file path
+            foreach ($file_paths as $index => $filePath) {
+                if (Storage::disk('local')->exists($filePath)) {
+                    $fileName = basename($filePath);
+                    $fileContent = Storage::disk('local')->get($filePath);
+                    if ($fileContent === false) {
+                        \Log::error("Failed to read file: $filePath");
+                        continue;
+                    }
+                    $zip->addFile('document_' . ($index + 1) . '_' . $fileName, $fileContent);
+                    $filesAdded = true;
+                } else {
+                    \Log::warning("File not found: $filePath");
+                }
+            }
+
+            if (!$filesAdded) {
+                throw new \Exception("No valid files found for download");
+            }
+
+            $zip->finish();
+        }, $zipFileName, [
+            'Content-Type' => 'application/zip',
+            'Content-Disposition' => 'attachment; filename="' . $zipFileName . '"',
+        ]);
+
+    } catch (\Exception $err) {
+        \Log::error('Error downloading documents: ' . $err->getMessage());
+        return response()->json([
+            "message" => "Something has gone wrong",
+            "error" => $err->getMessage()
+        ], 500);
+    }
+}
 
 
 }
