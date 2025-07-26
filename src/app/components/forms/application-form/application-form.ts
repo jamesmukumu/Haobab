@@ -124,7 +124,7 @@ onSubmit(event: any) {
       this.msg.add({severity:"success",detail:"Application Processed",sticky:true})
       }else{
         this.loading = false
-        this.msg.add({severity:"error",detail:data.error,sticky:true})
+        this.msg.add({severity:"error",detail:"Something went wrong",sticky:true})
       }
       }).catch((err)=>console.error(err))
    
