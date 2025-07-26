@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use ZipStream\ZipStream;
 use Log;
@@ -47,7 +49,7 @@ class ApplicationController extends Controller{
                 'salaryExpectations' => 'required',
                 'DOB' => 'required|date',
                 'applicationDocs' => 'required', 
-                'applicationDocs.*' => 'file|mimes:pdf,doc,docx,png,jpeg,webp|max:8192', 
+                'applicationDocs.*' => 'file|mimes:pdf,doc,docx,csv,png,jpeg,webp|max:8192', 
             ]);
     
             $files = $request->file('applicationDocs');
@@ -114,10 +116,11 @@ public function downloadDocuments(Request $request)
         // Get applicant ID from query parameter
         $applicant_id = $request->query("id");
         $application = Application::findOrFail($applicant_id);
+        $profile_photo = $application['passportPhoto'];
 
         // Decode the resumePath JSON
         $file_paths = json_decode($application->resumePath, true);
-        \Log::info('File paths: ' . json_encode($file_paths));
+        Log::info('File paths: ' . json_encode($file_paths));
 
         // Check if file_paths is an array and not empty
         if (!is_array($file_paths) || empty($file_paths)) {
