@@ -49,7 +49,7 @@ class ApplicationController extends Controller{
                 'salaryExpectations' => 'required',
                 'DOB' => 'required|date',
                 'applicationDocs' => 'required', 
-                'applicationDocs.*' => 'file|mimes:pdf,doc,docx,csv,png,jpeg,webp|max:8192', 
+                'applicationDocs.*' => 'file|max:8192', 
             ]);
     
             $files = $request->file('applicationDocs');
