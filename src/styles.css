@@ -1,12 +1,48 @@
-@import "tailwindcss";
+/* styles.css */
 @import "tailwindcss";
 @plugin "tailwindcss-primeui";
 
+/* Normalize input styles across browsers */
+input, textarea, select {
+  background-color: white !important;
+  color: black !important;
+  -webkit-appearance: none; /* Remove Safari-specific styling */
+  -moz-appearance: none; /* Remove Firefox-specific styling */
+  appearance: none; /* Standardize appearance */
+}
 
-/* In your global styles.css or component styles */
-:host ::ng-deep .p-datepicker,
+/* Override autofill styles for WebKit browsers (Safari, Edge) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: black !important;
+}
+
+/* PrimeNG-specific overrides */
 :host ::ng-deep .p-inputtext,
+:host ::ng-deep .p-datepicker,
 :host ::ng-deep textarea {
   background-color: white !important;
   color: black !important;
+  border: 1px solid #d1d5db !important; /* Tailwind's gray-300 */
+}
+
+/* Ensure focus states are consistent */
+:host ::ng-deep .p-inputtext:focus,
+:host ::ng-deep .p-datepicker:focus,
+:host ::ng-deep textarea:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px #3b82f6 !important; /* Tailwind's blue-500 */
+}
+
+/* File upload button styling */
+:host ::ng-deep .p-fileupload .p-button {
+  background-color: #10b981 !important; /* Tailwind's green-500 */
+  color: white !important;
+  border: none !important;
+}
+:host ::ng-deep .p-fileupload .p-button:hover,.filer {
+  background-color: #059669 !important; /* Tailwind's green-600 */
 }

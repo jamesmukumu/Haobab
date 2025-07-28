@@ -203,7 +203,7 @@
                 >
                     Add Work Experience
                 </button>
-                <div class="w-full">
+                <div class="w-full bg-white">
                     <p-fileupload
                         #fu
                         mode="advanced"
@@ -211,6 +211,7 @@
                         chooseIcon="pi pi-upload"
                         name="demo"
                         multiple
+                        class="filer"
                         maxFileSize="100000000"
                         (onSelect)="onUpload($event)"
                         showCancelButton="false"
