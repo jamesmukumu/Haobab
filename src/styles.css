@@ -1,6 +1,9 @@
-/* styles.css */
 @import "tailwindcss";
 @plugin "tailwindcss-primeui";
+
+p,span{
+color: black;
+}
 
 /* Normalize input styles across browsers */
 input, textarea, select {
@@ -20,7 +23,7 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: black !important;
 }
 
-/* PrimeNG-specific overrides */
+/* PrimeNG-specific overrides for inputs and datepicker */
 :host ::ng-deep .p-inputtext,
 :host ::ng-deep .p-datepicker,
 :host ::ng-deep textarea {
@@ -37,12 +40,47 @@ input:-webkit-autofill:active {
   box-shadow: 0 0 0 2px #3b82f6 !important; /* Tailwind's blue-500 */
 }
 
-/* File upload button styling */
+/* File upload button styling for both profile photo and application files */
 :host ::ng-deep .p-fileupload .p-button {
   background-color: #10b981 !important; /* Tailwind's green-500 */
   color: white !important;
   border: none !important;
+  padding: 0.5rem 1rem !important; /* Tailwind's p-2 px-4 */
+  border-radius: 0.375rem !important; /* Tailwind's rounded-md */
 }
-:host ::ng-deep .p-fileupload .p-button:hover,.filer {
+
+/* Hover state for file upload buttons */
+:host ::ng-deep .p-fileupload .p-button:hover {
   background-color: #059669 !important; /* Tailwind's green-600 */
+}
+
+/* Ensure file upload container has consistent background and text */
+:host ::ng-deep .p-fileupload {
+  background-color: white !important;
+  color: black !important;
+  border: 1px solid #d1d5db !important; /* Tailwind's gray-300 */
+  border-radius: 0.375rem !important; /* Tailwind's rounded-md */
+}
+
+/* Style for file upload label and file name */
+:host ::ng-deep .p-fileupload .p-fileupload-choose,
+:host ::ng-deep .p-fileupload .p-fileupload-filename {
+  color: black !important;
+  background-color: white !important;
+  font-size: 0.875rem !important; /* Tailwind's text-sm */
+  font-weight: 500 !important; /* Tailwind's font-medium */
+}
+
+/* Ensure file name is visible in advanced mode (application files) */
+:host ::ng-deep .p-fileupload .p-fileupload-file {
+  color: black !important;
+  background-color: white !important;
+  padding: 0.5rem !important; /* Tailwind's p-2 */
+}
+
+/* Remove any dark background from file upload content area */
+:host ::ng-deep .p-fileupload .p-fileupload-content {
+  background-color: white !important;
+  color: black !important;
+  border: none !important;
 }

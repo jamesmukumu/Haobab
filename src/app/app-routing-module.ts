@@ -15,7 +15,10 @@ const routes: Routes = [
     provideAnimations(),
     providePrimeNG({
       theme: {
-        preset:Material
+        preset:Material,
+        options: {
+          darkModeSelector: false || 'none'
+      }
       }
     })
   ]
