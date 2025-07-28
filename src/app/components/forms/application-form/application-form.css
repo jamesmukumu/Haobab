@@ -2,6 +2,13 @@
     @apply flex flex-wrap gap-2 justify-start;
   }
 
+
+  /* styles.css */
+.force-white {
+  background-color: white !important;
+  color: black !important;
+}
+
   /* Optional: Stack buttons on extra-small screens */
   @media (max-width: 640px) {
     ::ng-deep .file-upload-wrapper .p-button {

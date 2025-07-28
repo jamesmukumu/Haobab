@@ -1,3 +1,12 @@
 @import "tailwindcss";
 @import "tailwindcss";
 @plugin "tailwindcss-primeui";
+
+
+/* In your global styles.css or component styles */
+:host ::ng-deep .p-datepicker,
+:host ::ng-deep .p-inputtext,
+:host ::ng-deep textarea {
+  background-color: white !important;
+  color: black !important;
+}
