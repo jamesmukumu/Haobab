@@ -113,18 +113,24 @@
                     ></textarea>
                     <small *ngIf="briefIntro.invalid && briefIntro.touched" class="text-red-500">Brief intro is required.</small>
                 </div>
-                <div class="w-full">
+                <div class="flex flex-col">
                     <p-fileupload
                         #fu
                         mode="basic"
                         chooseLabel="Choose a Profile Photo"
                         chooseIcon="pi pi-upload"
-                        name="demo"
+                        name="profilePhoto"
                         maxFileSize="100000000"
+                        accept="image/*"
                         (onSelect)="selectPassport($event)"
                         showCancelButton="false"
                         [style]="{'width': '100%','color':'black'}"
+                        required
+                        #profilePhoto="ngModel"
+                        [(ngModel)]="formData.profilePhoto"
+                        name="profilePhoto"
                     ></p-fileupload>
+                    <small *ngIf="!formData.profilePhoto && profilePhoto.touched" class="text-red-500">Profile photo is required.</small>
                 </div>
             </div>
             <div class="space-y-4 w-full md:w-1/2">
@@ -139,7 +145,6 @@
                             [name]="'company-' + i"
                             required
                             #company="ngModel"
-                            
                             class="border p-2 rounded-md w-full"
                             [class.border-red-500]="company.invalid && company.touched"
                         />
@@ -209,10 +214,11 @@
                         mode="advanced"
                         chooseLabel="Choose Application Files"
                         chooseIcon="pi pi-upload"
-                        name="demo"
+                        name="applicationFiles"
                         multiple
                         class="filer"
                         maxFileSize="100000000"
+                        accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf,application/pdf,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation"
                         (onSelect)="onUpload($event)"
                         showCancelButton="false"
                         [style]="{'width': '100%'}"
@@ -232,5 +238,5 @@
         </div>
       </form>
     </div>
-  </div>
-  <p-toast/>
+</div>
+<p-toast/>
